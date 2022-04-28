@@ -8,8 +8,10 @@ import zio.console.{Console, putStrLn}
 import zio.random.Random
 
 object Backend extends App {
-  val httpApp: HttpApp[Has[ExampleService], Throwable] =
-    DeriveRoutes.gen[ExampleService]
+
+  val httpApp: HttpApp[Has[ExampleService], Throwable] = ???
+
+  //DeriveRoutes.gen[ExampleService]
 
   override def run(args: List[String]): URIO[zio.ZEnv, ExitCode] = (for {
     port <- system.envOrElse("PORT", "8088").map(_.toInt).orElseSucceed(8088)
@@ -20,6 +22,10 @@ object Backend extends App {
     .exitCode
 }
 
+// zio-app dev
+// kit langton formula git repo
+// z-overflow
+// https://github.com/kitlangton/animus
 case class ExampleServiceLive(random: Random.Service, console: Console.Service) extends ExampleService {
   override def magicNumber: UIO[Int] =
     for {
